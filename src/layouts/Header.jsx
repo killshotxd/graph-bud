@@ -1,8 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <div className="navbar containerWrap bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">GraphBud</a>
+        <a
+          onClick={() => navigate("/")}
+          className="btn btn-ghost normal-case text-xl"
+        >
+          GraphBud
+        </a>
       </div>
       <div className="flex-none gap-2">
         <div className="dropdown dropdown-end">
