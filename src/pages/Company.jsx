@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 
 import { MdEdit } from "react-icons/md";
-import { FaTrash } from "react-icons/fa";
+import { FaEye, FaTrash } from "react-icons/fa";
 import { Dna } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 const Company = () => {
+  const navigate = useNavigate();
+
   // INPUT VALUES STATE
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
@@ -127,7 +130,7 @@ const Company = () => {
   return (
     <>
       <Toaster />
-      <div className="containerWrap mt-8 py-6 flex m-auto justify-center flex-col">
+      <div className="containerWrap mt-8 py-6  flex m-auto justify-center flex-col">
         <div className="flex justify-end">
           {/* Open the modal using ID.showModal() method */}
           <button
@@ -145,7 +148,7 @@ const Company = () => {
         {/* TABLE */}
 
         {!loading ? (
-          <div className="overflow-x-auto mt-6">
+          <div className="overflow-x-auto mt-6 py-6">
             <table className="table">
               {/* head */}
               <thead>
@@ -160,7 +163,10 @@ const Company = () => {
                 {/* MAPPING ARRAY OF OBJECTS AND RENDERING ITERATIVELY */}
                 {companies?.map((res, i) => (
                   <>
-                    <tr key={res?._id}>
+                    <tr
+                      className="cursor-pointer hover:bg-base-200"
+                      key={res?._id}
+                    >
                       <th>{i + 1}</th>
                       <td>{res?.name}</td>
                       <td>{res?.location}</td>
@@ -180,6 +186,18 @@ const Company = () => {
                           <FaTrash
                             className="cursor-pointer"
                             onClick={() => handleDeleteCompany(res?._id)}
+                            size={20}
+                          />
+
+                          {/* VIEW DETAILS OF A COMPANY */}
+
+                          <FaEye
+                            className="cursor-pointer"
+                            onClick={() =>
+                              navigate(`/individual/${res?._id}`, {
+                                state: res,
+                              })
+                            }
                             size={20}
                           />
                         </div>
